@@ -1,0 +1,12 @@
+{
+  "name": "luan-test",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "mongoose": "^4.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.10.2"
+  }
+}
