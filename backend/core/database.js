@@ -1,6 +1,10 @@
 module.exports = function(app, mongoose) {
 
-  mongoose.connect('mongodb://luanmotta:97334676@ds057066.mlab.com:57066/db-teste');
+  var yourDatabase;
+
+  if (!yourDatabase) throw new Error ('É preciso inserir um banco de dados em "New-Architecture/backend/core/database.js"');
+
+  mongoose.connect(yourDatabase);
 
   mongoose.connection.on('connected', function() {
       console.log('(+) Conectado ao MongoDB');
