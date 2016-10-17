@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 module.exports = function() {
 
-  var yourDatabase = 'mongodb://luanmotta:97334676@ds057066.mlab.com:57066/db-teste' ;
+  var yourDatabase // = Insert your database here.
 
   if (!yourDatabase) throw new Error ('É preciso inserir um banco de dados em "New-Architecture/backend/core/database.js"');
 
