@@ -1,4 +1,6 @@
-var app = require('./core/config.js')();
+var app  = require('./core/config.js')(),
+    port = process.env.PORT || 8080;
+require('./core/database.js')(/* É preciso inserir o banco de dados aqui. */);
 
-app.listen(8080);
-console.log("luan-test on port " + 8080);
+app.listen(port);
+console.log("luan-test on port " + port);

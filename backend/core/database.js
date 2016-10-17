@@ -1,12 +1,10 @@
 var mongoose = require('mongoose');
 
-module.exports = function() {
+module.exports = function(uri) {
 
-  var yourDatabase // = Insert your database here.
+  if (!uri) throw new Error ('É preciso inserir um banco de dados em "New-Architecture/backend/index.js"');
 
-  if (!yourDatabase) throw new Error ('É preciso inserir um banco de dados em "New-Architecture/backend/core/database.js"');
-
-  mongoose.connect(yourDatabase);
+  mongoose.connect(uri);
 
   mongoose.connection.on('connected', function() {
       console.log('(+) Conectado ao MongoDB');

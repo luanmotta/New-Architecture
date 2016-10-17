@@ -2,8 +2,6 @@ var express    = require('express'),
     bodyParser = require('body-parser'),
     routeManager  = require('./../api/route-manager.js');
 
-require('./database.js')();
-
 module.exports = function() {
 
   var app = express();
