@@ -1,10 +1,19 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    path     = require('path');
 
 module.exports = function(uri) {
 
-  if (!uri) throw new Error ('É preciso inserir um banco de dados em "New-Architecture/backend/index.js"');
+  var databasePath = path.resolve(__dirname, '../../index.js'),
+      databaseUri  = uri || process.argv[2];
 
-  mongoose.connect(uri);
+  if (!databaseUri) {
+    console.log("\x1b[36m%s\x1b[0m", `É preciso inserir um banco de dados em ${databasePath}`);
+    throw new Error ("Não foi inserido banco de dados.");
+  }
+
+  console.log(databaseUri);
+
+  mongoose.connect(databaseUri);
 
   mongoose.connection.on('connected', function() {
       console.log('(+) Conectado ao MongoDB');
