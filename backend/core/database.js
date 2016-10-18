@@ -11,8 +11,6 @@ module.exports = function(uri) {
     throw new Error ("Não foi inserido banco de dados.");
   }
 
-  console.log(databaseUri);
-
   mongoose.connect(databaseUri);
 
   mongoose.connection.on('connected', function() {
