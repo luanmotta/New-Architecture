@@ -13,7 +13,7 @@ module.exports = function() {
 
 	dao.getElementById = function (Element) {
 		return function (req, res) {
-			Element.findById(req.params._id, function(err, model) {
+			Element.findById(req.params.id, function(err, model) {
 				if (err) res.status(500).send(err);
 				res.status(200).json(model);
 			});
@@ -31,7 +31,7 @@ module.exports = function() {
 
 	dao.putElement = function(Element) {
 		return function (req, res) {
-			Element.findByIdAndUpdate(req.params._id, req.body, function(err, model) {
+			Element.findByIdAndUpdate(req.params.id, req.body, function(err, model) {
 				if (err) res.status(500).send(err);
 				res.status(200).json(model);
 			});	
@@ -40,7 +40,7 @@ module.exports = function() {
 
 	dao.deleteElement = function(Element) {
 		return function (req, res) {
-			Element.remove(req.params._id, function(err, model) {
+			Element.remove(req.params.id, function(err, model) {
 				if (err) res.status(500).send(err);
 				res.status(200).json(model);
 			});	

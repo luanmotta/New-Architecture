@@ -7,13 +7,13 @@ module.exports = function (app, dao) {
 
 	app.get('/projects', dao.getElement(Projects));	
 
-	app.get('/projects/:_id', function (req, res) {
+	app.get('/projects/:id', function (req, res) {
 
-		Projects.findById(req.params._id, function(err1, p) {
+		Projects.findById(req.params.id, function(err1, p) {
 
 			if (err1) {	res.status(500).send(err1); return; }
 
-			Tasks.find( { project_id : req.params._id } , function(err2, t) {
+			Tasks.find( { project_id : req.params.id } , function(err2, t) {
 
 				if (err2) {	res.status(500).send(err2); return; }
 				res.status(200).json({"Project" : p, "Tasks" : t});			
@@ -32,16 +32,6 @@ module.exports = function (app, dao) {
 			var auxTasksArray = [];
 			var cont = 2;
 
-			var insertTaskArray = (t, reqLength) => {
-				var position = t.generic_id;
-				auxTasksArray[position-1] = t;
-				if (cont == reqLength) { 
-					var tasksArray = auxTasksArray.filter(item => item);
-					res.status(201).json({"Project" : p, "Tasks" : tasksArray});
-				}
-				cont++;
-			};
-
 			req.body.forEach(function (item, index) {
 
 				if (index > 0) {
@@ -55,13 +45,18 @@ module.exports = function (app, dao) {
 							generic_id : gt[0].generic_id,
 							project_id : p._id
 						};
-
 						
 						Tasks.create(taskObject, function(err2, t) {
 
 							if (err2) {res.status(500).send(err2); return;}
 
-							insertTaskArray(t, req.body.length);
+							var position = t.generic_id;
+							auxTasksArray[position-1] = t;
+							if (cont == req.body.length) { 
+								var tasksArray = auxTasksArray.filter(item => item);
+								res.status(201).json({"Project" : p, "Tasks" : tasksArray});
+							}
+							cont++;
 
 						});
 
@@ -71,8 +66,8 @@ module.exports = function (app, dao) {
 		});
 	});
 
-	app.put('/projects/:_id', dao.putElement(Projects));
+	app.put('/projects/:id', dao.putElement(Projects));
 
-	app.delete('/projects/:_id', dao.deleteElement(Projects));
+	app.delete('/projects/:id', dao.deleteElement(Projects));
 
 }
