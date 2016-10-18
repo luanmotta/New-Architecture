@@ -12,6 +12,7 @@ module.exports = function (app, dao) {
 		Projects.findById(req.params._id, function(err1, p) {
 
 			if (err1) {	res.status(500).send(err1); return; }
+
 			Tasks.find( { project_id : req.params._id } , function(err2, t) {
 
 				if (err2) {	res.status(500).send(err2); return; }
@@ -26,7 +27,7 @@ module.exports = function (app, dao) {
 
 		Projects.create(req.body[0], function(err, p) {
 
-			if (err) {res.status(500).send(err2); return;}
+			if (err) {res.status(500).send(err); return;}
 			
 			var auxTasksArray = [];
 			var cont = 2;
@@ -45,9 +46,9 @@ module.exports = function (app, dao) {
 
 				if (index > 0) {
 
-					GenericTasks.find({ generic_id : item }, function(err, gt) {
+					GenericTasks.find({ generic_id : item }, function(err2, gt) {
 
-						if (err) {res.status(500).send(err2); return;}
+						if (err2) {res.status(500).send(err2); return;}
 
 						var taskObject = {
 							name : gt[0].name,
@@ -56,9 +57,9 @@ module.exports = function (app, dao) {
 						};
 
 						
-						Tasks.create(taskObject, function(err, t) {
+						Tasks.create(taskObject, function(err2, t) {
 
-							if (err) {res.status(500).send(err2); return;}
+							if (err2) {res.status(500).send(err2); return;}
 
 							insertTaskArray(t, req.body.length);
 
